@@ -1,29 +1,46 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { ITavern, MyTavernService } from '../../taverns/my.tavern.service';
 
 @Component({
     templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnInit, OnDestroy{
+export class LoginComponent implements OnInit, OnDestroy {
     userName = '';
     password = '';
+    tavernID = '';
+    managerSignUp = false;
+    adminSignUp = false;
     showSignUp = false;
+    taverns: ITavern[];
 
-    constructor(private router: Router, private authService: AuthService) {}
+
+    constructor(private router: Router, private authService: AuthService, private myTavernService: MyTavernService) {}
 
     ngOnInit(): void {
-        console.log( {...this});
+        this.myTavernService.getTaverns().subscribe((taverns) => console.log(taverns));
+        // {
+          //  taverns = this.taverns;
+        //});
     }
 
-    ngOnDestroy(): void{
+    ngOnDestroy(): void {
         console.log('Is Destroyed');
     }
 
-    toggleSignUp(): void{
+    toggleSignUp(): void {
         this.showSignUp = !this.showSignUp;
         this.userName = '';
         this.password = '';
+    }
+
+    toggleAdmin(): void {
+        this.adminSignUp = !this.adminSignUp;
+    }
+
+    toggleManager(): void {
+        this.managerSignUp = !this.managerSignUp;
     }
 
     login(): void {
@@ -35,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy{
                 }
             },
             (error) => {
-                console.log('username/password incorrect');
+                console.log('username/password incorrect'); 
             },
         );
     }

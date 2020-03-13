@@ -6,12 +6,25 @@
       <input type="text" class="form-control" [(ngModel)]="userName" name="userName" />
       <label>Password</label>
       <input type="password" class="form-control" [(ngModel)]="password" name="password" />
+      <div *ngIf = "adminSignUp">
+      <label>Tavern ID</label>
+      <input type="text" class="form-control" [(ngModel)]="tavernID" name="tavernID" />
+      </div>
+      <select>
+        <option *ngFor="let tavern of taverns">{{ tavern }}</option>
+      </select>
     </div>
     <div class="col-md-6"></div>
   </div>
   <br />
   <div class="row">
     <div class="col-md-6">
+      <div *ngIf = "showSignUp">
+        <label for = "adminButton">Admin</label>
+        <input type = checkbox id = "adminButton" name ="adminButton" (click)="toggleAdmin()"/>
+        <label for = "managerButton">Manager</label>
+        <input type = checkbox id = "managerButton" name ="managerButton" (click)="toggleManager()"/>
+        </div>
       <button *ngIf = "!showSignUp" type="submit" class="btn btn-primary" (click)="login()">
         Submit
       </button>

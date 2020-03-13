@@ -3,6 +3,7 @@ const express = require('express');
 require('dotenv').config();
 require('./global_functions');
 const userController = require('./controllers/UsersController');
+const tavernController = require('./controllers/TavernController');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
@@ -17,7 +18,7 @@ app.use(passport.initialize());
 let opts = {};
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.jwt_encryption;
+opts.secretOrKey = process.env.jwt_encryption; 
 
 passport.use(
     new JwtStrategy(opts, async (jwtPayload, done) => {
@@ -68,6 +69,7 @@ app.use((req, res, next) => {
 
 app.post('/users', userController.create);
 app.post('/login', userController.login);
+app.get('/taverns', tavernController.taverns);
 
 console.log('SERVER READY');
 module.exports = app;

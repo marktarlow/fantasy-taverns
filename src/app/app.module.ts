@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './common/auth/login/login.component';
 import { TokenInterceptor } from './common/auth/token.interceptor';
 import { HomeComponent } from './home.component';
+import { MyTavernModule } from './common/taverns/my.tavern.module';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -23,6 +24,7 @@ import { HomeComponent } from './home.component';
         HttpClientModule,
         NgbModule,
         AppRoutingModule,
+        MyTavernModule,
         CookieModule.forRoot(),
     ],
     providers: [
