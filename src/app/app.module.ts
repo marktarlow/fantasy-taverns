@@ -23,8 +23,8 @@ import { MyTavernModule } from './common/taverns/my.tavern.module';
         FormsModule,
         HttpClientModule,
         NgbModule,
-        AppRoutingModule,
         MyTavernModule,
+        AppRoutingModule,
         CookieModule.forRoot(),
     ],
     providers: [

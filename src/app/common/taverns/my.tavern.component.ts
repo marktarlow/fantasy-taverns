@@ -9,7 +9,7 @@ import { MyTavernService, ITavern } from './my.tavern.service';
 
     taverns: ITavern[];
 
-    ngOnInit(): void{
+    ngOnInit(): void {
         this.myTavernService.getTaverns().subscribe((taverns) => {
             this.taverns = taverns;
         });

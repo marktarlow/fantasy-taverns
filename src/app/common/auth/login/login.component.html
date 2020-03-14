@@ -9,10 +9,16 @@
       <div *ngIf = "adminSignUp">
       <label>Tavern ID</label>
       <input type="text" class="form-control" [(ngModel)]="tavernID" name="tavernID" />
+      <label>Tavern Name</label>
+      <input type="text" class="form-control" [(ngModel)]="tavernName" name="tavernName" />
       </div>
-      <select>
-        <option *ngFor="let tavern of taverns">{{ tavern }}</option>
+      <div *ngIf = "managerSignUp">
+      <label for=""></label>
+      <select  class= "form-control">
+        <option [ngValue]="undefined" disabled>Select Tavern </option>
+          <option *ngFor="let tavern of taverns" [ngValue]="tavern">{{tavern.ID}}: {{tavern.TavernName}}</option>
       </select>
+      </div>
     </div>
     <div class="col-md-6"></div>
   </div>

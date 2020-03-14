@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { ITavern, MyTavernService } from '../../taverns/my.tavern.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
     templateUrl: './login.component.html',
@@ -10,6 +11,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     userName = '';
     password = '';
     tavernID = '';
+    tavernName = '';
     managerSignUp = false;
     adminSignUp = false;
     showSignUp = false;
@@ -19,10 +21,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private router: Router, private authService: AuthService, private myTavernService: MyTavernService) {}
 
     ngOnInit(): void {
-        this.myTavernService.getTaverns().subscribe((taverns) => console.log(taverns));
-        // {
-          //  taverns = this.taverns;
-        //});
+        this.myTavernService.getTaverns().subscribe((taverns) => {
+           this.taverns = taverns;
+           console.log(taverns);
+        });
     }
 
     ngOnDestroy(): void {

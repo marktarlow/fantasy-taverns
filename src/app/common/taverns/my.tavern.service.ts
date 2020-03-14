@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 
 export interface ITavern {
-    id: number;
-    name: string;
+    ID: number;
+    TavernName: string;
 }
 
 @Injectable({
