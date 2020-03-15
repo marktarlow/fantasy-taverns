@@ -7,14 +7,12 @@
       <label>Password</label>
       <input type="password" class="form-control" [(ngModel)]="password" name="password" />
       <div *ngIf = "adminSignUp">
-      <label>Tavern ID</label>
-      <input type="text" class="form-control" [(ngModel)]="tavernID" name="tavernID" />
       <label>Tavern Name</label>
       <input type="text" class="form-control" [(ngModel)]="tavernName" name="tavernName" />
       </div>
       <div *ngIf = "managerSignUp">
       <label for=""></label>
-      <select  class= "form-control">
+      <select class="form-control" [(ngModel)] ="selectedTavern" name="tavernList">
         <option [ngValue]="undefined" disabled>Select Tavern </option>
           <option *ngFor="let tavern of taverns" [ngValue]="tavern">{{tavern.ID}}: {{tavern.TavernName}}</option>
       </select>
@@ -27,9 +25,9 @@
     <div class="col-md-6">
       <div *ngIf = "showSignUp">
         <label for = "adminButton">Admin</label>
-        <input type = checkbox id = "adminButton" name ="adminButton" (click)="toggleAdmin()"/>
+        <input type = checkbox class="radio" id = "adminButton" name ="adminButton" (click)="toggleAdmin()"/>
         <label for = "managerButton">Manager</label>
-        <input type = checkbox id = "managerButton" name ="managerButton" (click)="toggleManager()"/>
+        <input type = checkbox class="radio" id = "managerButton" name ="managerButton" (click)="toggleManager()"/>
         </div>
       <button *ngIf = "!showSignUp" type="submit" class="btn btn-primary" (click)="login()">
         Submit

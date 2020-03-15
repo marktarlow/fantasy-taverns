@@ -17,6 +17,12 @@ export interface ILoginResponse {
     user?: IUser;
 }
 
+export interface ISignupResponse {
+    success: boolean;
+    token?: string;
+    user?: IUser;
+}
+
 export interface ICurrentlyLoggedInUser {
     token: string;
     user: IUser;
@@ -46,6 +52,12 @@ export class AuthService {
     isAuthenticated(): boolean {
         const currentUser = this.currentUser.getValue();
         return currentUser && currentUser.token ? true : false;
+    }
+
+    signup(payload: any): Observable<ISignupResponse> {
+        const data = payload;
+        return this.http
+        .post<ISignupResponse>('http://localhost:3000/create', data);
     }
 
     login(userName: string, password: string): Observable<ILoginResponse> {

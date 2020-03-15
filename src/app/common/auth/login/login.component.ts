@@ -10,12 +10,12 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 export class LoginComponent implements OnInit, OnDestroy {
     userName = '';
     password = '';
-    tavernID = '';
     tavernName = '';
     managerSignUp = false;
     adminSignUp = false;
     showSignUp = false;
     taverns: ITavern[];
+    selectedTavern: any;
 
 
     constructor(private router: Router, private authService: AuthService, private myTavernService: MyTavernService) {}
@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.myTavernService.getTaverns().subscribe((taverns) => {
            this.taverns = taverns;
-           console.log(taverns);
         });
     }
 
@@ -32,6 +31,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     toggleSignUp(): void {
+        if (this.adminSignUp) {
+            this.tavernName = '';
+            this.adminSignUp = !this.adminSignUp;
+        }
+        if (this.managerSignUp)
+        {
+            this.selectedTavern = undefined;
+            this.managerSignUp = !this.managerSignUp;
+        }
         this.showSignUp = !this.showSignUp;
         this.userName = '';
         this.password = '';
@@ -54,16 +62,34 @@ export class LoginComponent implements OnInit, OnDestroy {
                 }
             },
             (error) => {
-                console.log('username/password incorrect'); 
+                console.log('username/password incorrect');
             },
         );
     }
 
     signUp(): void {
+        if (this.selectedTavern === undefined) {
+            this.selectedTavern = {
+                ID: 0,
+                TavernName: this.tavernName
+            };
+        }
         const payload = {
-            userName: this.userName,
-            password: this.password
+            UserName: this.userName,
+            Password: this.password,
+            Tavern: this.selectedTavern
         };
-        console.log(payload);
+        console.log(payload.Tavern.ID);
+        this.authService.signup(payload).subscribe(
+            (response) => {
+                if (response.success) {
+                    console.log('successful signup');
+                    this.toggleSignUp();
+                }
+            },
+            (error) => {
+                console.log('Please Enter a Password');
+            },
+        );
     }
 }
