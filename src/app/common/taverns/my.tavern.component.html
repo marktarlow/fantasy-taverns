@@ -1,0 +1,4 @@
+<h2>{{ currUserTavern?.TavernName }}</h2>
+<ul>
+    <li *ngFor="let rooms of tavernRooms">{{rooms.RoomName}} - ${{rooms.DailyRate}}</li>
+</ul>

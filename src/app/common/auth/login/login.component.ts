@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { ITavern, MyTavernService } from '../../taverns/my.tavern.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+
 
 @Component({
     templateUrl: './login.component.html',
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             (response) => {
                 if (response.success) {
                     console.log('successful login');
-                    this.router.navigateByUrl('/home');
+                    this.router.navigateByUrl('/my-tavern');
                 }
             },
             (error) => {

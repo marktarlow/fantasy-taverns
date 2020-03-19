@@ -19,4 +19,9 @@ getTaverns(): Observable<ITavern[]> {
     .get<ITavern[]>('http://localhost:3000/taverns');
 }
 
+getUserTavern(): Observable<ITavern> {
+    return this.http
+    .get<ITavern>('http://localhost:3000/currUserTavern');
+}
+
 }

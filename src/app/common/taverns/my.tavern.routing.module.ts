@@ -2,15 +2,16 @@ import { NgModule } from "@angular/core";
 import { MyTavernComponent } from './my.tavern.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
-import { HomeComponent } from 'src/app/home.component';
+import { RoomComponent } from './rooms/room.component';
+
 
 const tavernRoutes: Routes = [
     { path: 'my-tavern', component: MyTavernComponent, canActivate: [AuthGuard] },
-    { path: '**', component: HomeComponent, canActivate: [AuthGuard] },
+    {path: 'my-tavern/:roomId', component: RoomComponent, canActivate: [AuthGuard],
+    },
 ];
 
 @NgModule({
-    
     exports: [RouterModule],
     imports: [RouterModule.forChild(tavernRoutes)],
 
