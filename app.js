@@ -75,6 +75,21 @@ app.post('/createUser', userController.createUser);
 app.post('/create', userController.create);
 app.get('/currUserTavern', passport.authenticate('jwt', { session: false }) ,tavernController.currUserTavern);
 app.get('/tavernRooms', passport.authenticate('jwt', { session: false }), roomController.tavernRooms);
+app.get(
+    '/tavernRooms/:roomId',
+    passport.authenticate('jwt', { session: false }),
+    roomController.getById,
+);
+app.put(
+    '/tavernRooms/:roomId',
+    passport.authenticate('jwt', { session: false }),
+    roomController.edit,
+);
+app.post(
+    '/tavernRooms',
+    passport.authenticate('jwt', { session: false }),
+    roomController.create,
+);
 
 console.log('SERVER READY');
 module.exports = app;

@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
     isNew: boolean;
 
-    todo: IRoom = {
+    room: IRoom = {
         ID: 0,
         RoomName: '',
         RoomStatus: false,
@@ -21,7 +21,8 @@ import { Router, ActivatedRoute } from '@angular/router';
     };
 
     roomForm = new FormGroup({
-        Name: new FormControl('', [Validators.required]),
+        Name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+        Rate: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     });
 
     constructor(
@@ -31,6 +32,27 @@ import { Router, ActivatedRoute } from '@angular/router';
     ) {}
 
     ngOnInit(): void {
-        const roomId: string = this.route.snapshot.params.todoId;
+        const roomId: string = this.route.snapshot.params.roomId;
+        if (roomId === 'add') {
+            this.isNew = true;
+        } else {
+            this.isNew = false;
+            this.roomService.getById(+roomId).subscribe((room) => {
+                this.room = room;
+                this.roomForm.setValue({ Name:  room.RoomName, Rate: room.DailyRate});
+            });
+        }
+
+    }
+
+    saveRoom(): void {
+        if (this.roomForm.valid) {
+            this.room.RoomName = this.roomForm.value.Name;
+            this.room.DailyRate = this.roomForm.value.Rate;
+            this.roomService.saveRoom(this.room).subscribe((room: IRoom) => {
+                this.router.navigate(['/my-tavern']);
+            });
+        }
+
     }
 }

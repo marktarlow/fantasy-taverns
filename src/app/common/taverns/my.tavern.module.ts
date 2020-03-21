@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MyTavernComponent } from './my.tavern.component';
 import { MyTavernRoutingModule } from './my.tavern.routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RoomComponent } from './rooms/room.component';
 
 @NgModule ({
 
-    declarations: [MyTavernComponent],
+    declarations: [MyTavernComponent, RoomComponent],
     imports: [CommonModule, ReactiveFormsModule, MyTavernRoutingModule],
 }) export class MyTavernModule {}

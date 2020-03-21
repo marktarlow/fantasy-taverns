@@ -1,4 +1,25 @@
 <h2>{{ currUserTavern?.TavernName }}</h2>
-<ul>
-    <li *ngFor="let rooms of tavernRooms">{{rooms.RoomName}} - ${{rooms.DailyRate}}</li>
+<h2>Room List</h2>
+<div class="row form-group">
+    <!--<div class="col-md-8">
+        <input
+            class="form-control"
+            id="search"
+            (keyup)="search($event)"
+            [(ngModel)]="searchText"
+            placeholder="Enter text to Search..."
+        />
+    </div> -->
+    <div class="col-md-2">
+        <button class="btn btn-primary text-nowrap" routerLink="/my-tavern/add">Add Room</button>
+    </div>
+</div>
+<ul class="list-group">
+    <li
+        *ngFor="let room of tavernRooms"
+        class="list-group-item"
+        [routerLink]="'/my-tavern/' + room.ID"
+    >
+        {{ room.RoomName }} - ${{ room.DailyRate }}
+    </li>
 </ul>
