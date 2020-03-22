@@ -8,5 +8,5 @@ import { RoomComponent } from './rooms/room.component';
 @NgModule ({
 
     declarations: [MyTavernComponent, RoomComponent],
-    imports: [CommonModule, ReactiveFormsModule, MyTavernRoutingModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MyTavernRoutingModule],
 }) export class MyTavernModule {}
