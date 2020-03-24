@@ -33,7 +33,6 @@ export interface IRoom {
 
     saveRoom(room: IRoom): Observable<IRoom> {
         const isEdit = room.ID > 0;
-        console.log(room);
         if (isEdit) {
             return this.http.put<IRoom>(
                 `http://localhost:3000/tavernRooms/${room.ID}`, room
@@ -43,6 +42,12 @@ export interface IRoom {
                 'http://localhost:3000/tavernRooms', room
             );
         }
+    }
+
+    deleteRoom(room: IRoom): Observable<any> {
+        return this.http.delete<any>(
+            `http://localhost:3000/tavernRooms/${room.ID}`
+        )
     }
 
 }

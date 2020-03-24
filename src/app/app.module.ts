@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieModule } from 'ngx-cookie';
+import { ToastrModule } from 'ngx-toastr';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +15,7 @@ import { LoginComponent } from './common/auth/login/login.component';
 import { TokenInterceptor } from './common/auth/token.interceptor';
 import { HomeComponent } from './home.component';
 import { MyTavernModule } from './common/taverns/my.tavern.module';
+
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -26,6 +29,7 @@ import { MyTavernModule } from './common/taverns/my.tavern.module';
         MyTavernModule,
         AppRoutingModule,
         CookieModule.forRoot(),
+        ToastrModule.forRoot(),
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

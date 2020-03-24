@@ -90,6 +90,11 @@ app.post(
     passport.authenticate('jwt', { session: false }),
     roomController.create,
 );
+app.delete(
+    '/tavernRooms/:roomId',
+    passport.authenticate('jwt', { session: false }),
+    roomController.deleteRoom,
+);
 
 console.log('SERVER READY');
 module.exports = app;

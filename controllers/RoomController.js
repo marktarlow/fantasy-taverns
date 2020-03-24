@@ -108,3 +108,27 @@ const edit = async function(req, res) {
 };
 
 module.exports.edit = edit;
+
+const deleteRoom = async function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    let roomPool;
+    let room;
+
+    const pool = await poolPromise;
+
+    try {
+        roomPool = await pool
+            .request()
+            .input('ID', sql.Int, req.params.roomId)
+            .query(
+        
+                `DELETE FROM Rooms WHERE ID = @ID`,
+            );
+    } catch (e) {
+        returnError(res, e, 500);
+    }
+
+    return returnSuccessResponse(res, {success: true}, 200);
+
+};
+module.exports.deleteRoom = deleteRoom;

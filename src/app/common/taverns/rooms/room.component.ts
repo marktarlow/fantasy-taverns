@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MyTavernService, ITavern } from '../my.tavern.service';
-import { Observable } from 'rxjs';
 import { IRoom, RoomService } from './room.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-room',
@@ -22,13 +21,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 
     roomForm = new FormGroup({
         Name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-        Rate: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+        Rate: new FormControl('', [Validators.required, Validators.maxLength(7)]),
     });
 
     constructor(
         private roomService: RoomService,
         private router: Router,
         private route: ActivatedRoute,
+        private toastr: ToastrService,
     ) {}
 
     ngOnInit(): void {
@@ -51,6 +51,7 @@ import { Router, ActivatedRoute } from '@angular/router';
             this.room.DailyRate = this.roomForm.value.Rate;
             this.roomService.saveRoom(this.room).subscribe((room: IRoom) => {
                 this.router.navigate(['/my-tavern']);
+                this.toastr.success('Room Saved');
             });
         }
 

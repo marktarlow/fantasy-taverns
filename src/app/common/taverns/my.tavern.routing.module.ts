@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { MyTavernComponent } from './my.tavern.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';

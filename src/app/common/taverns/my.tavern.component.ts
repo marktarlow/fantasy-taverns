@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MyTavernService, ITavern } from './my.tavern.service';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { IRoom, RoomService } from './rooms/room.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     templateUrl: './my.tavern.component.html'
@@ -15,15 +14,19 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
     currUserTavern: ITavern;
     tavernRooms: IRoom[];
     searchText = '';
+    isOwner = false;
+    private currUser = JSON.parse(String(this.authService.currentUser.getValue().user));
 
     searchUpdated = new Subject<string>();
     subscription = new Subscription();
 
-    constructor(private myTavernService: MyTavernService, private roomService: RoomService) {
+    constructor(private myTavernService: MyTavernService,
+        private roomService: RoomService,
+        private authService: AuthService, ) {
         this.subscription = this.searchUpdated
             .pipe(debounceTime(300), distinctUntilChanged())
-            .subscribe((searchValue) => {
-                this.searchRooms(searchValue);
+            .subscribe(() => {
+                this.searchRooms();
             });
     }
 
@@ -35,6 +38,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
         this.roomService.get('').subscribe((tavernRooms) => {
             this.tavernRooms = tavernRooms;
         });
+
+        if (this.currUser.RoleID === 1) {
+            this.isOwner = true;
+        }
     }
 
     ngOnDestroy(): void {
@@ -45,10 +52,17 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
         this.searchUpdated.next($event.target.value);
     }
 
-    searchRooms(searchValue: string): void {
-        this.roomService.get(searchValue).subscribe((tavernRooms) => {
+    searchRooms(): void {
+        this.roomService.get(this.searchText).subscribe((tavernRooms) => {
             this.tavernRooms = tavernRooms;
         });
+    }
+
+    deleteRoom(room: IRoom, event: MouseEvent): void {
+        event.stopPropagation();
+        event.preventDefault();
+        this.roomService.deleteRoom(room).subscribe();
+        this.searchRooms();
     }
 
 
