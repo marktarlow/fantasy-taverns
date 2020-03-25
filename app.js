@@ -5,6 +5,7 @@ require('./global_functions');
 const userController = require('./controllers/UsersController');
 const tavernController = require('./controllers/TavernController');
 const roomController = require('./controllers/RoomController');
+const guestController = require('./controllers/GuestController');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
@@ -94,6 +95,11 @@ app.delete(
     '/tavernRooms/:roomId',
     passport.authenticate('jwt', { session: false }),
     roomController.deleteRoom,
+);
+app.get(
+    '/getGuests',
+    passport.authenticate('jwt', { session: false }),
+    guestController.getAll,
 );
 
 console.log('SERVER READY');

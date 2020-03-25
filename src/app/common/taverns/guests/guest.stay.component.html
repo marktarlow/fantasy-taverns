@@ -1,0 +1,24 @@
+<h2>Book Room</h2>
+<div class="col-md-5">
+<label for=""></label>
+      <select class="form-control" [(ngModel)] ="selectedGuest" name="guestList">
+        <option [ngValue]="undefined" disabled>Select Guest</option>
+          <option *ngFor="let guest of guests" [ngValue]="guest">{{guest.ID}}: {{guest.GuestName}}</option>
+      </select>
+</div>
+<div class="col-md-3">
+<label for="">Stay Date: </label>
+<input type="date" [(ngModel)] ="date">
+</div>
+<div class="col-md-5">
+  <label for=""></label>
+        <select class="form-control" [(ngModel)] ="selectedRoom" name="roomList">
+          <option [ngValue]="undefined" disabled>Select Room</option>
+            <option *ngFor="let room of rooms" [ngValue]="room">{{room.RoomName}} - ${{room.DailyRate}}</option>
+        </select>
+  </div>
+  <div class="col-md-2 pt-2">
+    <button type="submit" class="btn btn-success" (click)="bookStay()">Save</button>
+  </div>
+
+  <div class="pt-5"></div>

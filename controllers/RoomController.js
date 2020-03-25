@@ -12,7 +12,7 @@ const tavernRooms = async function(req, res) {
             .input('UserId', sql.Int, req.user.ID)
             .input('RoomName', sql.VarChar, req.query.Search)
             .query( 
-                `SELECT R.ID, R.RoomName, R.RoomStatus, R.TavernID, R.DailyRate FROM Rooms AS R INNER JOIN Taverns AS T ON (R.TavernID = T.ID) INNER JOIN Users AS U ON (T.ID = U.TavernID) WHERE U.ID = @UserId AND R.RoomName Like '%' + @RoomName + '%'`,
+                `SELECT R.ID, R.RoomName, R.RoomStatus, R.TavernID, R.DailyRate FROM Rooms AS R INNER JOIN Taverns AS T ON (R.TavernID = T.ID) INNER JOIN Users AS U ON (T.ID = U.TavernID) WHERE U.ID = @UserId AND R.RoomName Like '%' + @RoomName + '%' ORDER BY R.DailyRate DESC`,
             );
             result = resultPool.recordset;
             

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { ITavern, MyTavernService } from '../../taverns/my.tavern.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -18,7 +19,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     selectedTavern: any;
 
 
-    constructor(private router: Router, private authService: AuthService, private myTavernService: MyTavernService) {}
+    constructor(
+        private router: Router,
+        private authService: AuthService,
+        private myTavernService: MyTavernService,
+        private toastr: ToastrService
+    ) {}
 
     ngOnInit(): void {
         this.myTavernService.getTaverns().subscribe((taverns) => {
@@ -62,6 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 }
             },
             (error) => {
+                this.toastr.error('username/password incorrect');
                 console.log('username/password incorrect');
             },
         );

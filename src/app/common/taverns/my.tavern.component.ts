@@ -4,9 +4,11 @@ import { Subject, Subscription } from 'rxjs';
 import { IRoom, RoomService } from './rooms/room.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-    templateUrl: './my.tavern.component.html'
+    selector: 'app-tavern',
+    templateUrl: './my.tavern.component.html',
 }) export class MyTavernComponent implements OnInit, OnDestroy {
 
     
@@ -20,9 +22,11 @@ import { AuthService } from '../auth/auth.service';
     searchUpdated = new Subject<string>();
     subscription = new Subscription();
 
-    constructor(private myTavernService: MyTavernService,
+    constructor(
+        private myTavernService: MyTavernService,
         private roomService: RoomService,
-        private authService: AuthService, ) {
+        private authService: AuthService, 
+        private router: Router) {
         this.subscription = this.searchUpdated
             .pipe(debounceTime(300), distinctUntilChanged())
             .subscribe(() => {
@@ -63,6 +67,10 @@ import { AuthService } from '../auth/auth.service';
         event.preventDefault();
         this.roomService.deleteRoom(room).subscribe();
         this.searchRooms();
+    }
+
+    bookRoom(event: MouseEvent): void {
+        this.router.navigate(['my-tavern/book-room']);
     }
 
 
