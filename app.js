@@ -101,11 +101,16 @@ app.get(
     passport.authenticate('jwt', { session: false }),
     guestController.getAll,
 );
-app.put(
-    '/roomStay',
+app.post(
+    '/booking',
     passport.authenticate('jwt', { session: false }),
     guestController.booking,
-)
+);
+app.get(
+    '/getRoomStay',
+    passport.authenticate('jwt', { session: false }),
+    guestController.getRoomStay,
+);
 
 console.log('SERVER READY');
 module.exports = app;

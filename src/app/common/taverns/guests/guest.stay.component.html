@@ -8,13 +8,13 @@
 </div>
 <div class="col-md-3">
 <label for="">Stay Date: </label>
-<input type="date" [(ngModel)] ="date">
+<input type="date" [(ngModel)]="date" (change)="checkDate()" required> 
 </div>
 <div class="col-md-5">
   <label for=""></label>
         <select class="form-control" [(ngModel)] ="selectedRoom" name="roomList">
           <option [ngValue]="undefined" disabled>Select Room</option>
-            <option *ngFor="let room of rooms" [ngValue]="room">{{room.RoomName}} - ${{room.DailyRate}}</option>
+            <option *ngFor="let room of adjustedRooms" [ngValue]="room">{{room.RoomName}} - ${{room.DailyRate}}</option>
         </select>
   </div>
   <div class="col-md-2 pt-2">

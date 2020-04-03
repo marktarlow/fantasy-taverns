@@ -47,7 +47,7 @@ export interface IRoom {
     deleteRoom(room: IRoom): Observable<any> {
         return this.http.delete<any>(
             `http://localhost:3000/tavernRooms/${room.ID}`
-        )
+        );
     }
 
 }

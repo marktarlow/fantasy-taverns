@@ -14,11 +14,15 @@ export interface IGuest {
 
 export interface IRoomStay {
     Guest: IGuest;
-    StayDateStart: string;
+    StayDateStart: Date;
     Room: IRoom;
     StayLength: number;
-    BookingDate: string;
 }
+
+export interface IRoomStayGet {
+    RoomID: number;
+}
+
 
 @Injectable({
     providedIn: 'root'
@@ -33,6 +37,10 @@ export interface IRoomStay {
 
     roomStay(data: IRoomStay): Observable<any> {
         return this.http.
-        put<any>('http://localhost:3000/roomStay', data);
+        post<any>('http://localhost:3000/booking', data);
+    }
+
+   getRoomStays(date: Date): Observable<IRoomStayGet[]> {
+        return this.http.get<IRoomStayGet[]>(`http://localhost:3000/getRoomStay?bookDate=${date}`);
     }
 }
